@@ -25,6 +25,8 @@ The project is containerized using Docker, and the services are orchestrated wit
 │   ├── Dockerfile           # Dockerfile for AI backend
 │
 ├── ui_backend/
+│   ├── templates/            #Folder containing HTML templates.
+|        ├── index.html      #The main HTML template for the UI.
 │   ├── app.py               # UI backend code
 │   ├── requirements.txt     # Python dependencies for UI backend
 │   ├── Dockerfile           # Dockerfile for UI backend
@@ -91,7 +93,20 @@ After running the `docker-compose up --build` command, you can access the servic
 - `app.py`: Entry point for the UI backend.
 - `requirements.txt`: Lists the Python dependencies required for the UI backend.
 - `Dockerfile`: Defines the Docker image for the UI backend.
+- `templates/`: Folder containing HTML templates for the user interface.
 
+#### `templates/`
+- `index.html`: The main HTML template for the object detection service.
+
+##### `index.html`
+- Features a responsive design with a clean, modern interface.
+- Includes a file upload section for selecting images.
+- Displays detection results with:
+  - Detailed list of detected objects.
+  - Processed image with bounding boxes.
+  - Full JSON output of detection results.
+- Uses client-side JavaScript for asynchronous file upload and result display.
+- Includes inline CSS for styling and layout.
 ### `temp/`
 - Storage for input images or files.
 
