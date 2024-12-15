@@ -5,11 +5,10 @@
 
 ---
 
-# Project README
-
 ## Overview
 
-This project consists of two main components:
+This project focuses on object detection using the YOLOv8 model. The project is structured into two main components:
+
 1. **AI Backend**: Handles AI-related tasks, such as image processing or model inference using **YOLOv8**.
 2. **UI Backend**: Manages the user interface or API endpoints for interacting with the AI backend.
 
@@ -43,7 +42,6 @@ The project is containerized using Docker, and the services are orchestrated wit
 Before running the project, ensure you have the following installed:
 
 - **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
-- **Docker Compose**: [Install Docker Compose](https://docs.docker.com/compose/install/)
 - **Python**: Version **3.9** (for local development if not using Docker)
 
 ---
