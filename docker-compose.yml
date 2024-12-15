@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  ai_backend:
+    build: ./ai_backend  # Path to your ai_backend directory
+    ports:
+      - "5001:5001"  # Expose port 5001 to the host
+    volumes:
+      - ./temp:/app/temp  # Mount temp folder
+      - ./output:/app/output  # Mount output folder
+    networks:
+      - app_network  # Join the same network as the UI backend
+
+  ui_backend:
+    build: ./ui_backend  # Path to your ui_backend directory
+    ports:
+      - "5000:5000"  # Expose port 5000 to the host
+    depends_on:
+      - ai_backend  # Ensure AI backend is ready before starting UI
+    volumes:
+      - ./output:/app/output  # Mount output folder
+    networks:
+      - app_network  # Join the same network as the AI backend
+
+networks:
+  app_network:  # Define a custom network
+    driver: bridge

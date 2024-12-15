@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection - Detailed Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 900px;
+            max-width: 90%;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        input[type="file"] {
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+            width: fit-content;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        #resultContainer {
+            margin-top: 20px;
+        }
+        .detection-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .detection-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: left;
+            overflow-y: auto;   /* Vertical scrolling if it gets too tall */
+            overflow-x: scroll;
+        }
+        #outputImage {
+            max-width: 100%;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #jsonOutput {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Object Detection Service</h1>
+    
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" id="image" accept="image/*" required>
+        <button type="submit">Detect Objects</button>
+    </form>
+
+    <div id="resultContainer" style="display: none;">
+        <h2>Detection Results</h2>
+        
+        <ul id="detectionsList" class="detection-list"></ul>
+
+        <img id="outputImage" src="" alt="Processed Image">
+        
+        <h3>Detailed JSON Output</h3>
+        <pre id="jsonOutput"></pre>
+    </div>
+</div>
+
+<script>
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const resultContainer = document.getElementById('resultContainer');
+    const detectionsList = document.getElementById('detectionsList');
+    const outputImage = document.getElementById('outputImage');
+    const jsonOutput = document.getElementById('jsonOutput');
+
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Reset previous results
+            detectionsList.innerHTML = '';
+            resultContainer.style.display = 'block';
+
+            // Populate detections list
+            data.detections.forEach(detection => {
+                const li = document.createElement('li');
+                li.className = 'detection-item';
+                li.innerHTML = `
+                    <strong>Class:</strong> ${detection.class}<br>
+                    <strong>Confidence:</strong> ${(detection.confidence * 100).toFixed(2)}%<br>
+                    <strong>Bounding Box:</strong> ${JSON.stringify(detection.bbox)}
+                `;
+                detectionsList.appendChild(li);
+            });
+
+            // Display processed image
+            outputImage.src = data.output_image;
+
+            // Display full JSON for transparency
+            jsonOutput.textContent = JSON.stringify(data, null, 2);
+        } else {
+            // Handle error
+            resultContainer.style.display = 'block';
+            detectionsList.innerHTML = `<li class="detection-item">Error: ${data.error}</li>`;
+        }
+    } catch (error) {
+        console.error('Upload error:', error);
+        alert('An error occurred during upload');
+    }
+});
+</script>
+</body>
+</html>

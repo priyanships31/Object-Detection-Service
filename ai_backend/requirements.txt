@@ -1,0 +1,8 @@
+torch==2.0.0
+torchvision==0.15.1
+ultralytics==8.0.111
+opencv-python-headless==4.7.0.72
+numpy==1.23.5
+flask==2.3.2
+werkzeug==2.3.4
+requests==2.31.0
