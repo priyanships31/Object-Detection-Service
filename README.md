@@ -105,8 +105,7 @@ After running the `docker-compose up --build` command, you can access the servic
   - Detailed list of detected objects.
   - Processed image with bounding boxes.
   - Full JSON output of detection results.
-- Uses client-side JavaScript for asynchronous file upload and result display.
-- Includes inline CSS for styling and layout.
+ 
 ### `temp/`
 - Storage for input images or files.
 
