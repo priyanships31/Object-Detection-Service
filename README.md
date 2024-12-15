@@ -1,7 +1,7 @@
 # Object-Detection-Service
 
 
-Great! Since you're using **YOLOv8** and **Python 3.9**, I'll update the `README.md` file to reflect this information and provide additional details specific to YOLOv8.
+
 
 ---
 
