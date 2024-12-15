@@ -25,8 +25,8 @@ The project is containerized using Docker, and the services are orchestrated wit
 │   ├── Dockerfile           # Dockerfile for AI backend
 │
 ├── ui_backend/
-│   ├── templates/            #Folder containing HTML templates.
-|        ├── index.html      #The main HTML template for the UI.
+│   ├── templates/           # Folder containing HTML templates.
+|        ├── index.html      # The main HTML template for the UI.
 │   ├── app.py               # UI backend code
 │   ├── requirements.txt     # Python dependencies for UI backend
 │   ├── Dockerfile           # Dockerfile for UI backend
