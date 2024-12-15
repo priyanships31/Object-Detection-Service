@@ -32,6 +32,7 @@ The project is containerized using Docker, and the services are orchestrated wit
 ├── temp/                    # Folder to store input images
 ├── output/                  # Folder to store output images and JSON files
 ├── docker-compose.yml       # Orchestrates the two services
+├── Documenation.pdf         # Documentation with resources 
 └── README.md                # Documentation
 ```
 
